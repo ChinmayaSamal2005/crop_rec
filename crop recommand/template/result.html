@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction Result</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to top right, #ff9a9e, #fad0c4);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            max-width: 800px;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            animation: slideIn 1s ease-in-out;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        h1 span {
+            background: linear-gradient(to right, #74ebd5, #9face6);
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: textPulse 2s infinite alternate;
+        }
+        @keyframes textPulse {
+            from {
+                text-shadow: 0 0 10px rgba(116, 235, 213, 0.6);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(156, 172, 230, 1);
+            }
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table th, table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        table th {
+            background-color: #f4f4f4;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            margin: 8px 0;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .recommended {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .unsuitable {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .improvements {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .btn {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            background: linear-gradient(to right, #74ebd5, #9face6);
+            color: white;
+            text-align: center;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        .btn:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><span>Crop Recommendation Results</span></h1>
+
+        <!-- Recommended Crops -->
+        <h2>Recommended Crops</h2>
+        <table>
+            <tr>
+                <th>Crop</th>
+                <th>Suitability (%)</th>
+            </tr>
+            {% for crop, probability in crops %}
+            <tr>
+                <td>{{ crop }}</td>
+                <td>{{ probability }}%</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <!-- Unsuitable Crops -->
+        <h2>Unsuitable Crops</h2>
+        <ul>
+            {% for crop in unsuitable %}
+            <li class="unsuitable">{{ crop }}</li>
+            {% endfor %}
+        </ul>
+
+        <!-- Soil Improvement Suggestions -->
+        <h2>Soil Improvement Suggestions</h2>
+        <ul>
+            {% for improvement in improvements %}
+            <li class="improvements">{{ improvement }}</li>
+            {% endfor %}
+        </ul>
+
+        <a href="/" class="btn">Go Back</a>
+    </div>
+</body>
+</html>
